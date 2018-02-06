@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">AirCalendar</string>
+
+    <string name="sans_serif" translatable="false">sans-serif</string>
+    <string-array name="label_calender_week">
+        <item name="0"></item>
+        <item name="1">일</item>
+        <item name="2">월</item>
+        <item name="3">화</item>
+        <item name="4">수</item>
+        <item name="5">목</item>
+        <item name="6">금</item>
+        <item name="7">토</item>
+    </string-array>
+    <string name="resetting">다시쓰기</string>
+    <string name="sunday">일</string>
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
+    <string name="saturday">토</string>
+    <string name="save">저장</string>
+    <string name="info">정보</string>
+    <string name="select_day">날짜를 선택하세요.</string>
+    <string name="ok">확인</string>
+    <string name="start">시작</string>
+    <string name="end">끝</string>
+    <string name="book_name">책 제목*</string>
+    <string name="book_author">저자</string>
+    <string name="reading_day">기간* </string>
+    <string name="unfolding">펼치기</string>
+    <string name="book_search">책찾기</string>
+    <string name="about_this_book">감상평을 남겨주세요...</string>
+</resources>

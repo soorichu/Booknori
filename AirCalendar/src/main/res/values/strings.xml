@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">AirCalendar</string>
+
+    <string name="sans_serif" translatable="false">sans-serif</string>
+    <string-array name="label_calender_week">
+        <item name="0"></item>
+        <item name="1">SUN</item>
+        <item name="2">MON</item>
+        <item name="3">TUE</item>
+        <item name="4">WED</item>
+        <item name="5">THU</item>
+        <item name="6">FRI</item>
+        <item name="7">SAT</item>
+    </string-array>
+    <string name="resetting">REWRITE</string>
+    <string name="sunday">SUN</string>
+    <string name="monday">MON</string>
+    <string name="tuesday">TUE</string>
+    <string name="wednesday">WED</string>
+    <string name="thursday">THU</string>
+    <string name="friday">FRI</string>
+    <string name="saturday">SAT</string>
+    <string name="save">SAVE</string>
+    <string name="info">INFO</string>
+    <string name="select_day">Plese Select Day.</string>
+    <string name="ok">OK</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="book_name">Book Name*</string>
+    <string name="book_author">Author</string>
+    <string name="reading_day">Day* </string>
+    <string name="unfolding">Unfolding</string>
+    <string name="book_search">Searching</string>
+    <string name="about_this_book">Write about this Book..</string>
+    <string name="title_activity_searching">SearchingActivity</string>
+    <string name="large_text">
+        text
+    </string>
+    <string name="action_settings">Settings</string>
+</resources>
