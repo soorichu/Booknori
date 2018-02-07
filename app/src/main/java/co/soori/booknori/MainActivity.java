@@ -1,5 +1,6 @@
 package co.soori.booknori;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
+import co.soori.aircalendar.AirCalendarDatePickerActivity;
 import co.soori.booknori.R;
 
 import co.soori.aircalendar.core.AirCalendarIntent;
@@ -20,6 +23,8 @@ import co.soori.aircalendar.core.AirCalendarIntent;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public final static int REQUEST_CODE = 1;
+    private Button button1, button2, button3;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,34 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        button1 = findViewById(R.id.button1);
+        button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
+
+
+        button1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                AirCalendarIntent intent = new AirCalendarIntent(MainActivity.this);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                intent = new Intent(MainActivity.this, SearchingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                intent = new Intent(MainActivity.this, ViewingActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

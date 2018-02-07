@@ -6,4 +6,37 @@
     android:layout_height="match_parent"
     tools:context="co.soori.booknori.SearchingActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:hint="search for book name..."
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_searcing"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center|end"
+            android:layout_margin="@dimen/fab_margin" />
+
+
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 </android.support.constraint.ConstraintLayout>
