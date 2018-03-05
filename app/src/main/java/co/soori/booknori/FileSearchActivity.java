@@ -241,7 +241,7 @@ public class FileSearchActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             mDlg.dismiss();
-            listadapter=new MyListAdapter(mContext);
+            listadapter = new MyListAdapter(mContext);
             listView.setAdapter(listadapter);
 
             String searchText = editView.getText().toString();

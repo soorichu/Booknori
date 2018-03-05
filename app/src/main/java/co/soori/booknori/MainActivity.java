@@ -23,7 +23,7 @@ import co.soori.aircalendar.core.AirCalendarIntent;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public final static int REQUEST_CODE = 1;
-    private Button button1, button2, button3;
+    private Button button1, button2, button3, button4;
     private Intent intent;
 
     @Override
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
 
 
         button1.setOnClickListener(new View.OnClickListener(){
@@ -77,6 +78,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view){
                 intent = new Intent(MainActivity.this, ViewingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                intent = new Intent(MainActivity.this, FileSearchActivity.class);
                 startActivity(intent);
             }
         });
