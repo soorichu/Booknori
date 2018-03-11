@@ -42,13 +42,10 @@
 
         </LinearLayout>
 
-        <TextView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="book html"
-            android:layout_margin="20dp"
-            android:textSize="18dp"
-            android:id="@+id/html_text"
+            android:id="@+id/google_search_list"
             />
 
         <ListView
