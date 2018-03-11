@@ -46,7 +46,7 @@ public class SearchingActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
     private EditText searchEdit;
-    private String htmlPageUrl = "https://www.google.co.kr/search?tbm=bks&q=";
+    private String htmlPageUrl;
     private String bookName;
 
     private ListView googleBookList;
@@ -158,6 +158,7 @@ public class SearchingActivity extends AppCompatActivity {
 
             bookName = searchEdit.getText().toString();
             listAllItems.clear();
+            htmlPageUrl = "https://www.google.co.kr/search?tbm=bks&q=";
 
             if(bookName!=null && bookName.length()>0 && bookName != " ") {
                 bookName = bookName.replace(" ", "+");
