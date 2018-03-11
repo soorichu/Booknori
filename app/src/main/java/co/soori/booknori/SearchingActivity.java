@@ -205,7 +205,7 @@ public class SearchingActivity extends AppCompatActivity {
                     }
                     bookItem item = new bookItem();
                     item.name = title;
-                    item.author = image;
+                    item.author = author;
                     item.isbn = isbn;
                     item.image = image;
                     listAllItems.add(item);

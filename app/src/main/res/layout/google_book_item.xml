@@ -44,8 +44,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:text="book name"
-                android:layout_weight="0"
-                android:textSize="20sp" />
+                android:layout_weight="6"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -54,7 +54,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:orientation="vertical"
-                android:layout_weight="10">
+                android:layout_weight="4">
 
                 <TextView
                     android:id="@+id/google_book_author"
