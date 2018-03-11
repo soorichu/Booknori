@@ -2,6 +2,8 @@ package co.soori.booknori;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -41,18 +46,12 @@ public class SearchingActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
     private EditText searchEdit;
-//    private TextView textviewHtmlDocument;
     private String htmlPageUrl = "https://www.google.co.kr/search?tbm=bks&q=";
     private String bookName;
 
     private ListView googleBookList;
-    private List<Book> books;
     private ArrayList<bookItem> listAllItems = new ArrayList<bookItem>();
-    private ArrayList<String> nameList = new ArrayList<String>();
-    private ArrayList<String> authorList = new ArrayList<String>();
-    private ArrayList<String> imageList = new ArrayList<String>();
     private BookListAdapter listAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +91,8 @@ public class SearchingActivity extends AppCompatActivity {
     public class bookItem{
         String name;
         String author;
-        String publisher;
         String image;
+        String isbn;
     }
 
     public class BookListAdapter extends ArrayAdapter<bookItem>{
@@ -106,12 +105,17 @@ public class SearchingActivity extends AppCompatActivity {
         public void bindView(View view, bookItem item){
             TextView name = (TextView) view.findViewById(R.id.google_book_name);
             name.setText(item.name);
-            ImageView image = (ImageView) view.findViewById(R.id.google_book_image);
-            //image settting (next)
             TextView author = (TextView) view.findViewById(R.id.google_book_author);
             author.setText(item.author);
-            TextView publisher = (TextView) view.findViewById(R.id.google_book_publisher);
-            publisher.setText(item.publisher);
+            TextView isbn = (TextView) view.findViewById(R.id.google_book_isbn);
+            isbn.setText(item.isbn);
+            ImageView image = (ImageView) view.findViewById(R.id.google_book_image);
+            if(item.image!=null && item.image!="") {
+                byte[] decodedString = Base64.decode(item.image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                if(decodedByte.getRowBytes() > 1)
+                    image.setImageBitmap(decodedByte);
+            }
         }
 
         @Override
@@ -142,8 +146,8 @@ public class SearchingActivity extends AppCompatActivity {
 
 
     private class JsoupAsyncTask extends AsyncTask<String, Void, String> {
- //       private ProgressDialog mDlg;
         Context mContext;
+
 
         public JsoupAsyncTask(Context context){
             mContext = context;
@@ -151,6 +155,7 @@ public class SearchingActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+
             bookName = searchEdit.getText().toString();
             listAllItems.clear();
 
@@ -159,10 +164,6 @@ public class SearchingActivity extends AppCompatActivity {
                 htmlPageUrl += bookName;
             }
 
-//            mDlg = new ProgressDialog(mContext);
-//            mDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//            mDlg.setMessage("Please Wait...");
-//            mDlg.show();
         }
 
         @Override
@@ -172,8 +173,10 @@ public class SearchingActivity extends AppCompatActivity {
                 Document doc = Jsoup.connect(htmlPageUrl).get();
                 Elements links = doc.select("div.g");
 
+                int num = 0;
+
                 for (Element link : links) {
-                    String title, author;
+                    String title, author, image, isbn;
                     try {
                         title = link.select("h3.r").text();
                         title = title.replace("null", "");
@@ -186,10 +189,27 @@ public class SearchingActivity extends AppCompatActivity {
                     }catch(Exception e){
                         author = "";
                     }
+                    try {
+                        isbn = link.select("cite._Rm").first().text();
+                        isbn = isbn.substring(isbn.indexOf("=") + 1);
+                        isbn = isbn.replace("null", "");
+                    }catch(Exception e){
+                        isbn = "";
+                    }
+                    try{
+                        image = link.select("img#bksthumb"+(num+1)).first().attr("src");
+                        image = image.substring(image.indexOf(",") + 1);
+                        image = image.replace("null", "");
+                    }catch(Exception e){
+                        image = "";
+                    }
                     bookItem item = new bookItem();
                     item.name = title;
-                    item.author = author;
+                    item.author = image;
+                    item.isbn = isbn;
+                    item.image = image;
                     listAllItems.add(item);
+                    num++;
                 }
 
             } catch (IOException e) {
@@ -204,7 +224,6 @@ public class SearchingActivity extends AppCompatActivity {
             listAdapter = new BookListAdapter(mContext);
             googleBookList.setAdapter(listAdapter);
 
-//           mDlg.dismiss();
         }
     }
 
