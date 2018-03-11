@@ -48,6 +48,9 @@ public class SearchingActivity extends AppCompatActivity {
     private ListView googleBookList;
     private List<Book> books;
     private ArrayList<bookItem> listAllItems = new ArrayList<bookItem>();
+    private ArrayList<String> nameList = new ArrayList<String>();
+    private ArrayList<String> authorList = new ArrayList<String>();
+    private ArrayList<String> imageList = new ArrayList<String>();
     private BookListAdapter listAdapter;
 
 
@@ -129,41 +132,7 @@ public class SearchingActivity extends AppCompatActivity {
 
         }
 
-        public void fillter(String bookName){
 
-            listAllItems.clear();
-            if(bookName!=null && bookName.length()>0 && bookName != " ") {
-                bookName = bookName.replace(" ", "+");
-                htmlPageUrl += bookName;
-                try {
-                    Document doc = Jsoup.connect(htmlPageUrl).get();
-                    Elements links = doc.select("div.g");
-
-                    for (Element link : links) {
-                        String title, author;
-                        try {
-                            title = link.select("h3.r").text();
-                            title = title.replace("null", "");
-                        }catch(Exception e){
-                            title = "";
-                        }
-                        try {
-                            author = link.select("a.fl").first().text();
-                            author = author.replace("null", "");
-                        }catch(Exception e){
-                            author = "";
-                        }
-                        bookItem item = new bookItem();
-                        item.name = title;
-                        item.author = author;
-                        listAllItems.add(item);
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
 
@@ -182,7 +151,14 @@ public class SearchingActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            bookName = searchEdit.getText().toString();
+            listAllItems.clear();
+
+            if(bookName!=null && bookName.length()>0 && bookName != " ") {
+                bookName = bookName.replace(" ", "+");
+                htmlPageUrl += bookName;
+            }
+
 //            mDlg = new ProgressDialog(mContext);
 //            mDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 //            mDlg.setMessage("Please Wait...");
@@ -191,20 +167,43 @@ public class SearchingActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            bookName = searchEdit.getText().toString();
 
-            if(listAdapter!=null){
-                listAdapter.fillter(bookName);
+            try {
+                Document doc = Jsoup.connect(htmlPageUrl).get();
+                Elements links = doc.select("div.g");
+
+                for (Element link : links) {
+                    String title, author;
+                    try {
+                        title = link.select("h3.r").text();
+                        title = title.replace("null", "");
+                    }catch(Exception e){
+                        title = "";
+                    }
+                    try {
+                        author = link.select("a.fl").first().text();
+                        author = author.replace("null", "");
+                    }catch(Exception e){
+                        author = "";
+                    }
+                    bookItem item = new bookItem();
+                    item.name = title;
+                    item.author = author;
+                    listAllItems.add(item);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(String s) {
+            super.onPostExecute(s);
             listAdapter = new BookListAdapter(mContext);
             googleBookList.setAdapter(listAdapter);
 
-            super.onPostExecute(s);
 //           mDlg.dismiss();
         }
     }
